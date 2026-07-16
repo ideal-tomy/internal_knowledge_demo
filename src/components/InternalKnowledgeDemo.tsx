@@ -99,7 +99,10 @@ export function InternalKnowledgeDemo() {
         title="アクセス設定"
         onClose={() => setSheet("none")}
       >
-        <AccessModeBar trialPortalUrl={trialPortalUrl} />
+        <AccessModeBar
+          trialPortalUrl={trialPortalUrl}
+          onSaved={() => setSheet("none")}
+        />
       </BottomSheet>
     </div>
   );

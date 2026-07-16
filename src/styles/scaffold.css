@@ -1290,9 +1290,48 @@ body {
   cursor: pointer;
 }
 
+.access-mode-save:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .access-mode-portal {
   font-size: 0.82rem;
   color: #2a4a7a;
+}
+
+.access-mode-saved {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background: #f3f6fb;
+  border: 1px solid #d5deea;
+  border-radius: 8px;
+}
+
+.access-mode-saved-label {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #2a3138;
+}
+
+.access-mode-reset {
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #c5ced8;
+  border-radius: 6px;
+  background: #fff;
+  color: #3d4650;
+  cursor: pointer;
+}
+
+.access-mode-reset:hover {
+  border-color: #8a96a3;
+  background: #fafbfc;
 }
 
 .access-mode-note,

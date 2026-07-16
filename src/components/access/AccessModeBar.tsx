@@ -16,13 +16,31 @@ import {
 type AccessModeBarProps = {
   trialPortalUrl: string;
   onModeChange?: (mode: IkAccessMode) => void;
+  /** 保存成功後（シートを閉じる等） */
+  onSaved?: () => void;
 };
 
 /** Compact Access Mode control for Sample / BYOK / Trial. */
-export function AccessModeBar({ trialPortalUrl, onModeChange }: AccessModeBarProps) {
+export function AccessModeBar({
+  trialPortalUrl,
+  onModeChange,
+  onSaved,
+}: AccessModeBarProps) {
   const [mode, setMode] = useState<IkAccessMode>(() => getIkAccessMode());
-  const [apiKeyDraft, setApiKeyDraft] = useState(() => getApiKey(getIkProvider()));
-  const [trialDraft, setTrialDraft] = useState(() => getTrialCode());
+  const [apiKeyDraft, setApiKeyDraft] = useState("");
+  const [trialDraft, setTrialDraft] = useState("");
+  const [hasApiKey, setHasApiKey] = useState(
+    () => Boolean(getApiKey(getIkProvider()).trim()),
+  );
+  const [hasTrialCode, setHasTrialCode] = useState(
+    () => Boolean(getTrialCode().trim()),
+  );
+  const [editingApiKey, setEditingApiKey] = useState(
+    () => !getApiKey(getIkProvider()).trim(),
+  );
+  const [editingTrial, setEditingTrial] = useState(
+    () => !getTrialCode().trim(),
+  );
   const [savedHint, setSavedHint] = useState<string | null>(null);
 
   const applyMode = (next: IkAccessMode) => {
@@ -33,13 +51,41 @@ export function AccessModeBar({ trialPortalUrl, onModeChange }: AccessModeBarPro
   };
 
   const saveByok = () => {
-    setApiKey(getIkProvider(), apiKeyDraft.trim());
+    const value = apiKeyDraft.trim();
+    if (!value) return;
+    setApiKey(getIkProvider(), value);
+    setApiKeyDraft("");
+    setHasApiKey(true);
+    setEditingApiKey(false);
     setSavedHint("APIキーを保存しました（このタブのセッション）");
+    onSaved?.();
   };
 
   const saveTrial = () => {
-    setTrialCode(trialDraft.trim());
+    const value = trialDraft.trim();
+    if (!value) return;
+    setTrialCode(value);
+    setTrialDraft("");
+    setHasTrialCode(true);
+    setEditingTrial(false);
     setSavedHint("体験コードを保存しました（このタブのセッション）");
+    onSaved?.();
+  };
+
+  const resetApiKey = () => {
+    setApiKey(getIkProvider(), "");
+    setApiKeyDraft("");
+    setHasApiKey(false);
+    setEditingApiKey(true);
+    setSavedHint(null);
+  };
+
+  const resetTrial = () => {
+    setTrialCode("");
+    setTrialDraft("");
+    setHasTrialCode(false);
+    setEditingTrial(true);
+    setSavedHint(null);
   };
 
   return (
@@ -60,43 +106,79 @@ export function AccessModeBar({ trialPortalUrl, onModeChange }: AccessModeBarPro
       </div>
 
       {mode === "byok-direct" ? (
-        <div className="access-mode-bar-fields">
-          <input
-            className="access-mode-input"
-            type="password"
-            autoComplete="off"
-            placeholder="OpenAI APIキー"
-            value={apiKeyDraft}
-            onChange={(e) => setApiKeyDraft(e.target.value)}
-          />
-          <button type="button" className="access-mode-save" onClick={saveByok}>
-            保存
-          </button>
-        </div>
+        editingApiKey || !hasApiKey ? (
+          <div className="access-mode-bar-fields">
+            <input
+              className="access-mode-input"
+              type="password"
+              autoComplete="off"
+              placeholder="OpenAI APIキー"
+              value={apiKeyDraft}
+              onChange={(e) => setApiKeyDraft(e.target.value)}
+            />
+            <button
+              type="button"
+              className="access-mode-save"
+              onClick={saveByok}
+              disabled={!apiKeyDraft.trim()}
+            >
+              保存
+            </button>
+          </div>
+        ) : (
+          <div className="access-mode-saved">
+            <p className="access-mode-saved-label">APIキーを保存済みです</p>
+            <button
+              type="button"
+              className="access-mode-reset"
+              onClick={resetApiKey}
+            >
+              入力をリセット
+            </button>
+          </div>
+        )
       ) : null}
 
       {mode === "managed-trial" ? (
-        <div className="access-mode-bar-fields">
-          <input
-            className="access-mode-input"
-            type="text"
-            autoComplete="off"
-            placeholder="体験コード"
-            value={trialDraft}
-            onChange={(e) => setTrialDraft(e.target.value)}
-          />
-          <button type="button" className="access-mode-save" onClick={saveTrial}>
-            保存
-          </button>
-          <a
-            className="access-mode-portal"
-            href={trialPortalUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            コード取得
-          </a>
-        </div>
+        editingTrial || !hasTrialCode ? (
+          <div className="access-mode-bar-fields">
+            <input
+              className="access-mode-input"
+              type="text"
+              autoComplete="off"
+              placeholder="体験コード"
+              value={trialDraft}
+              onChange={(e) => setTrialDraft(e.target.value)}
+            />
+            <button
+              type="button"
+              className="access-mode-save"
+              onClick={saveTrial}
+              disabled={!trialDraft.trim()}
+            >
+              保存
+            </button>
+            <a
+              className="access-mode-portal"
+              href={trialPortalUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              コード取得
+            </a>
+          </div>
+        ) : (
+          <div className="access-mode-saved">
+            <p className="access-mode-saved-label">体験コードを保存済みです</p>
+            <button
+              type="button"
+              className="access-mode-reset"
+              onClick={resetTrial}
+            >
+              入力をリセット
+            </button>
+          </div>
+        )
       ) : null}
 
       {mode === "sample" ? (

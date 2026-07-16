@@ -1,0 +1,37 @@
+{
+  "packId": "towa-corporate-rules-v1",
+  "name": "東和ソリューションズ 社内規程パック",
+  "companyName": "東和ソリューションズ株式会社",
+  "isFictional": true,
+  "version": "0.5.0-phase5",
+  "documentCount": 3,
+  "categories": ["勤怠", "在宅", "購買"],
+  "lastUpdated": "2026-07-16",
+  "documents": [
+    {
+      "id": "leave-attendance-rules",
+      "title": "勤怠・休暇運用細則",
+      "path": "documents/leave-attendance-rules.json",
+      "version": "2.4",
+      "effectiveDate": "2026-04-01",
+      "ownerDepartment": "人事部"
+    },
+    {
+      "id": "remote-work-policy",
+      "title": "在宅勤務規程",
+      "path": "documents/remote-work-policy.json",
+      "version": "1.8",
+      "effectiveDate": "2026-05-01",
+      "ownerDepartment": "人事部・情報システム部"
+    },
+    {
+      "id": "purchase-rules",
+      "title": "経費精算・購買規程",
+      "path": "documents/purchase-rules.json",
+      "version": "4.0",
+      "effectiveDate": "2026-04-01",
+      "ownerDepartment": "経理部・管理部"
+    }
+  ],
+  "intentTreePath": "intent-tree.json"
+}

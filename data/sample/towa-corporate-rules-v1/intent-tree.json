@@ -1,0 +1,60 @@
+{
+  "packId": "towa-corporate-rules-v1",
+  "version": "0.3.0-phase3",
+  "roots": [
+    {
+      "id": "attendance",
+      "label": "勤怠・休暇",
+      "description": "勤務時間・休暇・勤怠修正",
+      "children": [
+        {
+          "id": "attendance-hours",
+          "label": "勤務時間・フレックス",
+          "children": [
+            {
+              "id": "leaf-flextime-core",
+              "label": "コアタイムを確認したい",
+              "guidedQuestionId": "gq-flextime-core"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "remote-work",
+      "label": "在宅勤務",
+      "description": "在宅上限・休暇との併用",
+      "children": [
+        {
+          "id": "remote-leave-combo",
+          "label": "休暇との併用",
+          "children": [
+            {
+              "id": "leaf-half-day-wfh",
+              "label": "午前半休のあと午後在宅できる？",
+              "guidedQuestionId": "gq-half-day-wfh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "purchase-approval",
+      "label": "購買・稟議",
+      "description": "緊急購入・承認経路",
+      "children": [
+        {
+          "id": "purchase-emergency",
+          "label": "緊急購入",
+          "children": [
+            {
+              "id": "leaf-emergency-purchase",
+              "label": "今日中の緊急購入の承認者は？",
+              "guidedQuestionId": "gq-emergency-purchase"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

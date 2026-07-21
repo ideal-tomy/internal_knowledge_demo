@@ -10,6 +10,7 @@ import { ClarifyingChoice } from "./ClarifyingChoice";
 import { DecisionCard } from "./DecisionCard";
 import { FollowUpChips } from "./FollowUpChips";
 import { IntentQuickReplies } from "./IntentQuickReplies";
+import { RoiPaybackCta } from "../RoiPaybackCta";
 import { TypingIndicator } from "./TypingIndicator";
 import { useAskFlow } from "../../hooks/useAskFlow";
 import { askInternalKnowledge } from "../../ai/askInternalKnowledge";
@@ -84,6 +85,7 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
 
   const showIntentUi = pack.isSample && turns.length === 0 && !isRunning;
   const welcomeLines = pack.isSample ? SAMPLE_WELCOME_LINES : CUSTOM_WELCOME_LINES;
+  const hasAnsweredTurn = turns.some((t) => t.blocks);
 
   const attachResult = useEffectEvent((blocks: AnswerBlocks) => {
     if (!pendingTurnId) return;
@@ -439,6 +441,8 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
             <TypingIndicator />
           </div>
         ) : null}
+
+        {hasAnsweredTurn ? <RoiPaybackCta /> : null}
 
         <div ref={threadEndRef} />
       </div>

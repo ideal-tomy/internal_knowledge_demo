@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AccessModeBar } from "./access/AccessModeBar";
 import { ConversationShell } from "./conversation/ConversationShell";
 import { KnowledgePanel } from "./knowledge/KnowledgePanel";
+import { RoiPaybackCta } from "./RoiPaybackCta";
 import { BottomSheet } from "./ui/BottomSheet";
 import { useVisualViewportHeight } from "../hooks/useVisualViewportHeight";
 import { useKnowledgePack } from "../knowledge/pack-store";
@@ -103,6 +104,7 @@ export function InternalKnowledgeDemo() {
           trialPortalUrl={trialPortalUrl}
           onSaved={() => setSheet("none")}
         />
+        <RoiPaybackCta />
       </BottomSheet>
     </div>
   );

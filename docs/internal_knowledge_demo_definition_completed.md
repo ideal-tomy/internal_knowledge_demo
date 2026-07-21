@@ -70,6 +70,13 @@
 
 > 規程を探す時間を短縮するだけではなく、判断に必要な情報を集め、次に行う処理まで整理するAIとして業務へ組み込めます。
 
+## 2.4 ROI 連動
+
+- 正本: ワークスペース内 `roi-simulator`
+- 環境変数: `VITE_ROI_SIMULATOR_URL`
+- 遷移: `/?kit=chatbot&industry=other&cat=internal&from=internal-knowledge`
+- 表示: 初回回答後（スレッド末尾）+ 設定シート末尾。別タブで開く
+
 ---
 
 # 3. Core Integration

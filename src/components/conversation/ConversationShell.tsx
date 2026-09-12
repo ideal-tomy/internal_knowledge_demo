@@ -34,15 +34,11 @@ import type {
 } from "../../types/internal-knowledge";
 
 const SAMPLE_WELCOME_LINES = [
-  "社内規程パックを横断して、手続きや承認の目安を確認できます。",
-  "ナレッジ外のルール作成や、最終的な人事・法務判断はできません。",
-  "下の用件から選ぶか、自由に質問してください。",
+  "社内規程を横断して、手続きや条件を確認できます。下の用件から選ぶか、自由に質問してください。",
 ];
 
 const CUSTOM_WELCOME_LINES = [
-  "マイナレッジ（セッション内）の文書だけを根拠に回答します。",
-  "本番の機密は入れず、挙動確認用の規程テキストで試してください。",
-  "自由に質問してください（ガイド質問はサンプルパック専用です）。",
+  "登録されたナレッジ文書を根拠に回答します。自由に質問してください。",
 ];
 
 type ThreadTurn = {
@@ -79,13 +75,14 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
   const [notice, setNotice] = useState<string | null>(null);
   const [pendingTurnId, setPendingTurnId] = useState<string | null>(null);
 
-  const threadEndRef = useRef<HTMLDivElement | null>(null);
+  const threadRef = useRef<HTMLDivElement | null>(null);
+  const latestTurnRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const packRevisionRef = useRef(pack.revision);
 
   const showIntentUi = pack.isSample && turns.length === 0 && !isRunning;
   const welcomeLines = pack.isSample ? SAMPLE_WELCOME_LINES : CUSTOM_WELCOME_LINES;
-  const hasAnsweredTurn = turns.some((t) => t.blocks);
+  const hasViewedEvidence = Object.values(evidenceOpenByTurn).some(Boolean);
 
   const attachResult = useEffectEvent((blocks: AnswerBlocks) => {
     if (!pendingTurnId) return;
@@ -108,7 +105,23 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
   }, [result, isRunning]);
 
   useEffect(() => {
-    threadEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    const threadEl = threadRef.current;
+    const turnEl = latestTurnRef.current;
+    if (!threadEl) return;
+
+    const frame = requestAnimationFrame(() => {
+      if (turnEl) {
+        const threadRect = threadEl.getBoundingClientRect();
+        const turnRect = turnEl.getBoundingClientRect();
+        const nextTop =
+          threadEl.scrollTop + (turnRect.top - threadRect.top) - 8;
+        threadEl.scrollTo({ top: Math.max(0, nextTop), behavior: "smooth" });
+        return;
+      }
+      threadEl.scrollTo({ top: threadEl.scrollHeight, behavior: "smooth" });
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [turns, intentSelections, isRunning, showIntentUi, error, notice]);
 
   const resizeTextarea = () => {
@@ -314,7 +327,7 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
             : "（文書なし — Knowledge Pack から追加）"}
         </p>
       ) : null}
-      <div className="conversation-thread" aria-live="polite">
+      <div className="conversation-thread" ref={threadRef} aria-live="polite">
         <div className="chat-row chat-row-bot">
           <div className="chat-bubble chat-bubble-bot">
             {welcomeLines.map((line) => (
@@ -376,13 +389,12 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
         ) : null}
 
         {turns.map((turn, turnIndex) => {
-          const isLatestAnswered =
-            !isRunning &&
-            Boolean(turn.blocks) &&
-            turnIndex === turns.length - 1 &&
-            Boolean(result?.source);
           return (
-            <div key={turn.id} className="conversation-turn">
+            <div
+              key={turn.id}
+              ref={turnIndex === turns.length - 1 ? latestTurnRef : undefined}
+              className="conversation-turn"
+            >
               <div className="chat-row chat-row-user">
                 <div className="chat-bubble chat-bubble-user">
                   <p className="chat-bubble-text">{turn.displayText}</p>
@@ -418,18 +430,6 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
                       />
                     ) : null}
                   </div>
-                  {isLatestAnswered && result?.source ? (
-                    <p className="conversation-source-hint">
-                      回答ソース:{" "}
-                      {result.source === "llm"
-                        ? "実AI（Structured Output）"
-                        : result.source === "fixture"
-                          ? "サンプル固定回答"
-                          : result.source === "llm-empty-fallback"
-                            ? "実AI応答が空のためローカル合成"
-                            : "サンプル検索（ローカル合成）"}
-                    </p>
-                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -442,9 +442,11 @@ export function ConversationShell({ onOpenDocument }: ConversationShellProps) {
           </div>
         ) : null}
 
-        {hasAnsweredTurn ? <RoiPaybackCta /> : null}
-
-        <div ref={threadEndRef} />
+        {hasViewedEvidence ? (
+          <div style={{ marginTop: 12 }}>
+            <RoiPaybackCta />
+          </div>
+        ) : null}
       </div>
 
       <form className="conversation-composer" onSubmit={handleFreeSubmit}>

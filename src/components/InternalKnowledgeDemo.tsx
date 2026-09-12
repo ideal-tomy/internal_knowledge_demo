@@ -56,7 +56,7 @@ export function InternalKnowledgeDemo() {
               onClick={() => setSheet("knowledge")}
               title="ナレッジパックを切り替え"
             >
-              {pack.isSample ? "サンプル" : "マイナレッジ"}
+              {pack.isSample ? "標準規程" : "マイナレッジ"}
             </button>
           </div>
           <div className="chat-app-header-actions">
@@ -84,7 +84,7 @@ export function InternalKnowledgeDemo() {
 
       <BottomSheet
         open={sheet === "knowledge"}
-        title="Knowledge Pack"
+        title="社内ナレッジ資料"
         onClose={() => setSheet("none")}
       >
         <KnowledgePanel

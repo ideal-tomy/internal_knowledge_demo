@@ -44,14 +44,16 @@ export function IntentQuickReplies({
           {node.label}
         </button>
       ))}
-      <button
-        type="button"
-        className="intent-quick-reset"
-        disabled={disabled}
-        onClick={onReset}
-      >
-        リセット
-      </button>
+      {path.length > 0 ? (
+        <button
+          type="button"
+          className="intent-quick-reset"
+          disabled={disabled}
+          onClick={onReset}
+        >
+          最初に戻る
+        </button>
+      ) : null}
     </div>
   );
 }

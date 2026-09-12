@@ -75,7 +75,8 @@
 - 正本: ワークスペース内 `roi-simulator`
 - 環境変数: `VITE_ROI_SIMULATOR_URL`
 - 遷移: `/?kit=chatbot&industry=other&cat=internal&from=internal-knowledge`
-- 表示: 初回回答後（スレッド末尾）+ 設定シート末尾。別タブで開く
+- 表示: 代表3手（根拠確認）完了後 + 設定シート末尾。別タブで開く（質問中・各回答直後の常時表示は廃止）
+- 出口: 「見積もりを閉じる」→ 閲覧モード（業界選択可）。正本 [`roi-simulator/docs/demo-roi-integration-playbook.md`](../../roi-simulator/docs/demo-roi-integration-playbook.md) §1.2
 
 ---
 

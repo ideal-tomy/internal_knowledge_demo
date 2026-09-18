@@ -12,6 +12,8 @@ npm run dev
 
 ## Docs
 
+- [トップの紹介アニメーション：構造・変更方法](src/components/demo-intro/README.md)
+- トップは紹介ページ。既存のチャットへ直接進む場合は `/#demo` を使用。
 - `docs/internal_knowledge_requirements.md`
 - `docs/internal_knowledge_demo_definition.md`
 - `docs/internal_knowledge_implementation_plan.md`

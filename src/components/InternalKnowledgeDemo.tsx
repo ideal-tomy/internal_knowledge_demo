@@ -60,6 +60,7 @@ export function InternalKnowledgeDemo() {
             </button>
           </div>
           <div className="chat-app-header-actions">
+            <a href="#" className="ki-back-link">紹介</a>
             <button
               type="button"
               className="chat-app-icon-btn"

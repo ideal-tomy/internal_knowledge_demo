@@ -1,0 +1,101 @@
+.ki-landing { height: 100dvh; overflow-y: auto; background: #f7f9fc; color: #182c42; font-family: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; }
+.ki-landing *, .ki-story * { box-sizing: border-box; }
+.ki-inner { max-width: 940px; margin: auto; padding: 0 36px; }
+.ki-header { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; border-bottom: 1px solid #dde4ec; gap: 12px; }
+.ki-header a { color: #1f4b7a; font-size: 12px; text-decoration: none; font-weight: 650; }
+.ki-header .ki-brand { font-size: 17px; letter-spacing: -.03em; }
+.ki-hero { padding: 48px 0 30px; }
+.ki-eyebrow { font-size: 10px; letter-spacing: .18em; font-weight: 700; color: #43658a; }
+.ki-hero h1 { font-size: clamp(25px, 4vw, 36px); letter-spacing: -.035em; line-height: 1.6; margin: 15px 0; text-wrap: balance; }
+.ki-hero > p:last-child { font-size: 14px; line-height: 1.9; color: #617185; }
+.ki-story { --intro-accent: #8ac9eb; border-radius: 16px; background: #111e2e; color: #f0f5fc; overflow: hidden; box-shadow: 0 18px 44px #203a5514; }
+.ki-story-top { padding: 15px 20px; display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid #ffffff13; font-size: 11px; color: #b7c9dc; }
+.ki-story-top span:first-child { color: #fff; font-weight: 600; }
+.ki-viewport { height: 424px; position: relative; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #263b53, #101c2b 80%); }
+.ki-stage { width: 920px; height: 350px; position: absolute; transform-origin: 0 0; will-change: transform; }
+.ki-device { position: absolute; background: #f6f8fb; color: #263b50; overflow: hidden; border: 2px solid #50647c; box-shadow: 0 16px 28px #0005; transition: opacity .85s ease, filter .85s ease, box-shadow .85s ease, border-color .85s ease; }
+.ki-device.ki-active { border-color: var(--intro-accent); box-shadow: 0 0 0 2px #8ac9eb24, 0 0 28px #8ac9eb20; opacity: 1; filter: none; }
+.ki-device.ki-idle { opacity: 0; filter: saturate(.3); box-shadow: none; pointer-events: none; }
+.ki-device-bar { height: 30px; background: #e8eef5; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; font-size: 11px; font-weight: 700; border-bottom: 1px solid #d5dfea; }
+.ki-device-bar span { font-size: 9px; color: #60738c; font-weight: 400; }
+.ki-phone { top: 5px; height: 340px; border-radius: 26px; padding: 22px 6px 10px; background: #182533; }
+.ki-ask { left: 40px; width: 236px; }
+.ki-search { left: 320px; width: 268px; }
+.ki-answer { left: 620px; width: 268px; }
+.ki-phone .ki-device-bar { border-radius: 10px 10px 0 0; }
+.ki-island { position: absolute; top: 7px; height: 7px; width: 46px; border-radius: 5px; background: #030b14; }
+.ki-ask .ki-island { left: 95px; }
+.ki-search .ki-island, .ki-answer .ki-island { left: 111px; }
+.ki-phone-body { background: white; height: 276px; border-radius: 0 0 15px 15px; padding: 12px 11px; overflow: hidden; }
+.ki-mini-label { font-size: 8px; letter-spacing: .06em; background: #e9eff6; color: #476589; border-radius: 4px; padding: 3px 5px; }
+.ki-phone h3 { font-size: 16px; margin: 12px 0; line-height: 1.5; }
+.ki-chat-bot { font-size: 10px; padding: 10px; background: #edf0f4; border-radius: 9px; }
+.ki-topics { display: flex; gap: 5px; font-size: 8px; color: #466282; }
+.ki-topics span { padding: 4px 7px; border: 1px solid #d6e0ec; border-radius: 20px; }
+.ki-question { margin: 12px 0 6px 12px; padding: 10px; font-size: 10px; line-height: 1.7; border-radius: 12px 12px 2px 12px; background: #edf1f6; }
+.ki-question.ki-sent { background: #1f4b7a; color: white; }
+.ki-send { font-size: 8px; text-align: right; color: #426385; }
+.ki-mini-q { margin: 0 0 8px 16px; padding: 7px 9px; font-size: 9px; line-height: 1.5; }
+.ki-search .retrieval-progress, .ki-answer .retrieval-progress { margin: 0 0 8px; }
+.ki-search .retrieval-progress-label { font-size: 9px; }
+.ki-hit-list { list-style: none; margin: 0; padding: 0; }
+.ki-hit-list li { display: flex; align-items: center; gap: 8px; border: 1px solid #dce3ec; border-radius: 7px; padding: 7px 8px; margin: 6px 0; font-size: 10px; }
+.ki-hit-list li.is-hit { border-color: #78aec7; background: #eef8fc; }
+.ki-hit-list span { font-size: 11px; color: #617892; background: #edf2f8; padding: 4px; }
+.ki-hit-list strong { display: block; font-size: 10px; }
+.ki-hit-list small { display: block; font-size: 8px; color: #6a7c90; margin-top: 2px; }
+.ki-hit-list b { margin-left: auto; color: #376e86; font-size: 11px; }
+.ki-answer .ki-answer-content { transform: scale(.62); transform-origin: top left; width: 390px; height: 430px; }
+.ki-answer .decision-card { padding: 12px; }
+.ki-answer .decision-conclusion { font-size: 15px; }
+.ki-answer .decision-section-title, .ki-answer .decision-list { font-size: 11px; }
+.ki-evidence-view .decision-section, .ki-evidence-view .decision-details:not(.decision-evidence) { display: none; }
+.ki-hud { position: absolute; bottom: 0; left: 0; right: 0; min-height: 88px; padding: 18px 20px; background: linear-gradient(transparent, #101c2b 30%); }
+.ki-hud p { margin: 12px auto 0; max-width: 580px; text-align: center; font-size: 13px; line-height: 1.8; text-wrap: balance; }
+.ki-dots { display: flex; gap: 5px; justify-content: center; }
+.ki-dots span { width: 18px; height: 3px; background: #ffffff30; border-radius: 2px; }
+.ki-dots .ki-current { background: var(--intro-accent); }
+.ki-controls { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 52px; padding: 8px 18px; border-top: 1px solid #ffffff14; }
+.ki-controls p { font-size: 10px; color: #b7c9dc; margin: 0; }
+.ki-controls > div { display: flex; gap: 8px; }
+.ki-controls button { border: 1px solid #63788f; color: #e9f2fc; background: transparent; border-radius: 6px; font-size: 11px; min-height: 34px; padding: 6px 10px; cursor: pointer; }
+.ki-landing a:focus-visible, .ki-controls button:focus-visible, .ki-back-link:focus-visible { outline: 3px solid #4f9acf; outline-offset: 4px; }
+.ki-summary { position: absolute; inset: 0 0 88px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+.ki-summary > span { color: #9acbe6; font-size: 11px; }
+.ki-summary h3 { font-size: clamp(20px, 3vw, 28px); line-height: 1.6; margin: 15px 0 28px; }
+.ki-summary > div { display: flex; align-items: center; gap: 12px; font-size: 11px; }
+.ki-summary > div span { padding-bottom: 12px; border-bottom: 2px solid #8ac9eb; }
+.ki-summary b { font-weight: 400; color: #8ac9eb; }
+.ki-summary p { font-size: 10px; line-height: 1.8; color: #c1cfdf; margin-top: 24px; }
+.ki-entry { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 32px 0; border-bottom: 1px solid #dde4ec; }
+.ki-entry h2 { font-size: 18px; margin: 0 0 9px; }
+.ki-entry p { font-size: 11px; color: #617185; margin: 0; line-height: 1.8; }
+.ki-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 16px 24px; border-radius: 8px; background: #1f4b7a; color: white; text-decoration: none; font-size: 13px; font-weight: 650; white-space: nowrap; }
+.ki-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-top: 30px; }
+.ki-features > div > span { font-size: 10px; color: #7290b0; }
+.ki-features h3 { font-size: 13px; }
+.ki-features p { font-size: 11px; line-height: 1.9; color: #617185; }
+.ki-footer { padding: 28px 0; font-size: 10px; color: #778697; }
+.ki-back-link { font-size: 11px; color: #1f4b7a; padding: 8px; text-decoration: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ki-story *, .ki-story *::before, .ki-story *::after { transition: none !important; animation: none !important; }
+}
+@media (max-width: 600px) {
+  .ki-inner { padding: 0 18px; }
+  .ki-header { padding: 20px 0; }
+  .ki-header .ki-brand { font-size: 15px; }
+  .ki-header a { font-size: 10px; }
+  .ki-hero { padding: 28px 0 20px; }
+  .ki-hero h1 { font-size: 25px; }
+  .ki-hero > p:last-child { font-size: 12px; }
+  .ki-desktop-break { display: none; }
+  .ki-story-top { padding: 13px 12px; font-size: 9px; }
+  .ki-hud { padding: 14px 12px; }
+  .ki-hud p { font-size: 12px; }
+  .ki-controls { padding: 8px 12px; }
+  .ki-entry { align-items: stretch; flex-direction: column; gap: 18px; }
+  .ki-cta { justify-content: center; }
+  .ki-features { grid-template-columns: 1fr; gap: 14px; }
+  .ki-features h3 { margin: 6px 0; }
+  .ki-features p { margin: 5px 0; }
+}

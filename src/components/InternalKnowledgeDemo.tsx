@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AccessModeBar } from "./access/AccessModeBar";
 import { ConversationShell } from "./conversation/ConversationShell";
 import { KnowledgePanel } from "./knowledge/KnowledgePanel";
@@ -12,7 +12,19 @@ const trialPortalUrl =
   import.meta.env.VITE_TRIAL_PORTAL_URL?.trim() ||
   "https://ai-demo-studio-lime.vercel.app/admin/trial";
 
+const SELECTION_RETURN_URL =
+  "https://axeon-demo-selection.vercel.app/?demo=internal-knowledge";
+
 type SheetKind = "none" | "knowledge" | "settings";
+
+function readFromSelection(): boolean {
+  try {
+    return new URLSearchParams(window.location.search).get("from") ===
+      "axeon-demo-selection";
+  } catch {
+    return false;
+  }
+}
 
 /** Chat-app shell: header + thread + composer. Knowledge / Access Mode はボトムシート。 */
 export function InternalKnowledgeDemo() {
@@ -20,6 +32,7 @@ export function InternalKnowledgeDemo() {
   const pack = useKnowledgePack();
   const [activeTarget, setActiveTarget] = useState<OpenDocumentTarget | null>(null);
   const [sheet, setSheet] = useState<SheetKind>("none");
+  const fromSelection = useMemo(() => readFromSelection(), []);
 
   const handleOpenDocument = (target: OpenDocumentTarget) => {
     setActiveTarget(target);
@@ -60,7 +73,18 @@ export function InternalKnowledgeDemo() {
             </button>
           </div>
           <div className="chat-app-header-actions">
-            <a href="#" className="ki-back-link">紹介</a>
+            {fromSelection ? (
+              <a
+                href={SELECTION_RETURN_URL}
+                className="ki-back-link"
+                target="_self"
+              >
+                厳選版へ戻る
+              </a>
+            ) : null}
+            <a href="#" className="ki-back-link">
+              紹介
+            </a>
             <button
               type="button"
               className="chat-app-icon-btn"

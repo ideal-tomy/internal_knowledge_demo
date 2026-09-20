@@ -67,14 +67,8 @@
 .ki-summary > div span { padding-bottom: 12px; border-bottom: 2px solid #8ac9eb; }
 .ki-summary b { font-weight: 400; color: #8ac9eb; }
 .ki-summary p { font-size: 10px; line-height: 1.8; color: #c1cfdf; margin-top: 24px; }
-.ki-entry { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 32px 0; border-bottom: 1px solid #dde4ec; }
-.ki-entry h2 { font-size: 18px; margin: 0 0 9px; }
-.ki-entry p { font-size: 11px; color: #617185; margin: 0; line-height: 1.8; }
+.ki-entry { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 32px 0; border-bottom: 1px solid #dde4ec; }
 .ki-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 16px 24px; border-radius: 8px; background: #1f4b7a; color: white; text-decoration: none; font-size: 13px; font-weight: 650; white-space: nowrap; }
-.ki-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-top: 30px; }
-.ki-features > div > span { font-size: 10px; color: #7290b0; }
-.ki-features h3 { font-size: 13px; }
-.ki-features p { font-size: 11px; line-height: 1.9; color: #617185; }
 .ki-footer { padding: 28px 0; font-size: 10px; color: #778697; }
 .ki-back-link { font-size: 11px; color: #1f4b7a; padding: 8px; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -95,7 +89,4 @@
   .ki-controls { padding: 8px 12px; }
   .ki-entry { align-items: stretch; flex-direction: column; gap: 18px; }
   .ki-cta { justify-content: center; }
-  .ki-features { grid-template-columns: 1fr; gap: 14px; }
-  .ki-features h3 { margin: 6px 0; }
-  .ki-features p { margin: 5px 0; }
 }

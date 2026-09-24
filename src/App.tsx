@@ -8,9 +8,14 @@ function isEmbedIntro() {
   return new URLSearchParams(window.location.search).get("embed") === "intro";
 }
 
+function isStageView() {
+  return new URLSearchParams(window.location.search).get("view") === "stage";
+}
+
 /** Real AI path: Sample / BYOK / Trial + Retrieval + Structured Output. */
 export default function App() {
   const [embed] = useState(isEmbedIntro);
+  const [stage] = useState(isStageView);
   const [demo, setDemo] = useState(() => window.location.hash === "#demo");
   useEffect(() => {
     const onHash = () => setDemo(window.location.hash === "#demo");
@@ -20,7 +25,7 @@ export default function App() {
 
   if (embed) {
     return (
-      <main className="ki-embed-intro">
+      <main className={`ki-embed-intro${stage ? " ki-embed-stage" : ""}`}>
         <DemoIntro />
       </main>
     );

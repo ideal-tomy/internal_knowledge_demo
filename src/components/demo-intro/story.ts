@@ -4,17 +4,19 @@ export type DeviceId = "ask" | "search" | "answer";
 export const scenes: {
   title: string;
   caption: string;
+  /** 厳選版 stage 表示用。画面の動きを名指しする短い1行。空なら出さない。 */
+  motion: string;
   duration: number;
   camera: Camera;
   stars: readonly DeviceId[];
 }[] = [
-  { title: "質問する", caption: "半休のあと、在宅勤務できる？ いつもの言葉で質問。", duration: 5000, camera: [158, 176, 1.3], stars: ["ask"] },
-  { title: "規程につながる", caption: "同じ画面のまま、登録された社内規程を確認します。", duration: 4500, camera: [306, 176, 0.96], stars: ["ask", "search"] },
-  { title: "規程を確認", caption: "勤怠と在宅勤務。関係する条項を横断して照合。", duration: 5000, camera: [454, 176, 1.18], stars: ["search"] },
-  { title: "回答が届く", caption: "結論だけでなく、条件と必要な手続きも一緒に。", duration: 4500, camera: [604, 176, 0.96], stars: ["search", "answer"] },
-  { title: "条件を確認", caption: "半休登録と在宅申請は別手続き。上長の承認も必要です。", duration: 6000, camera: [754, 176, 1.2], stars: ["answer"] },
-  { title: "根拠を見る", caption: "回答の根拠を開き、元の規程まで確認できます。", duration: 6000, camera: [754, 176, 1.2], stars: ["answer"] },
-  { title: "次の行動へ", caption: "探して終わりではなく、次に何をするかが分かります。", duration: 5000, camera: [754, 176, 1.05], stars: ["answer"] },
+  { title: "質問する", caption: "半休のあと、在宅勤務できる？ いつもの言葉で質問。", motion: "質問する", duration: 5000, camera: [158, 176, 1.3], stars: ["ask"] },
+  { title: "規程につながる", caption: "同じ画面のまま、登録された社内規程を確認します。", motion: "同じ画面のまま、規程へ", duration: 4500, camera: [306, 176, 0.96], stars: ["ask", "search"] },
+  { title: "規程を確認", caption: "勤怠と在宅勤務。関係する条項を横断して照合。", motion: "規程を確認", duration: 5000, camera: [454, 176, 1.18], stars: ["search"] },
+  { title: "回答が届く", caption: "結論だけでなく、条件と必要な手続きも一緒に。", motion: "回答が届く", duration: 4500, camera: [604, 176, 0.96], stars: ["search", "answer"] },
+  { title: "条件を確認", caption: "半休登録と在宅申請は別手続き。上長の承認も必要です。", motion: "条件を確認", duration: 6000, camera: [754, 176, 1.2], stars: ["answer"] },
+  { title: "根拠を見る", caption: "回答の根拠を開き、元の規程まで確認できます。", motion: "根拠を見る", duration: 6000, camera: [754, 176, 1.2], stars: ["answer"] },
+  { title: "次の行動へ", caption: "探して終わりではなく、次に何をするかが分かります。", motion: "", duration: 5000, camera: [754, 176, 1.05], stars: ["answer"] },
 ];
 
 export const totalDuration = scenes.reduce((sum, scene) => sum + scene.duration, 0);
